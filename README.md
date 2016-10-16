@@ -1,4 +1,4 @@
-# Решение задачи [№4](https://devman.org/challenges/5/) с сайта [devman.org](https://devman.org)
+# Решение задачи [№5](https://devman.org/challenges/5/) с сайта [devman.org](https://devman.org)
 
 ## Условие задачи:
 
