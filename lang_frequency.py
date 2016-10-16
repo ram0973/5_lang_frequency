@@ -17,20 +17,6 @@ def load_win_unicode_console():
         win_unicode_console.enable()
 
 
-def get_text_file_arguments():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--text', help='Введите путь к текстовому файлу')
-    parser.add_argument('--count',
-                        help='Введите количество слов',
-                        default=MOST_FREQUENT_WORDS_COUNT_DEFAULTS,
-                        type=int)
-    if parser.parse_args().text:
-        return parser.parse_args().text, parser.parse_args().count
-    else:
-        parser.print_help()
-        exit(1)
-
-
 def load_data(file_path: str):
     with open(file_path, mode='r') as file:
         return re.findall(r'[^\W|\d]+', file.read().lower())
@@ -48,15 +34,26 @@ def print_most_frequent_words_list(words_list):
 
 if __name__ == '__main__':
 
-    text_file_path, top_words_count = get_text_file_arguments()
+    load_win_unicode_console()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--text', help='Введите путь к текстовому файлу')
+    parser.add_argument('--count',
+                        help='Введите количество слов',
+                        default=MOST_FREQUENT_WORDS_COUNT_DEFAULTS,
+                        type=int)
+    if parser.parse_args().text:
+        text_file_path = parser.parse_args().text
+        top_words_count = parser.parse_args().count
+    else:
+        parser.print_help()
+        exit(1)
 
     try:
         text_for_analyze = load_data(text_file_path)
     except OSError as error:
         print('Ошибка: %s в файле: %s' % (error.strerror, error.filename))
         exit(1)
-
-    load_win_unicode_console()
 
     most_frequent_words = get_most_frequent_words(
         text_for_analyze, top_words_count)
