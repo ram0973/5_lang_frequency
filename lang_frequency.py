@@ -2,6 +2,7 @@
 import argparse
 import re
 import sys
+import chardet
 from collections import Counter
 
 MOST_FREQUENT_WORDS_COUNT_DEFAULTS = 10
@@ -18,7 +19,9 @@ def load_win_unicode_console():
 
 
 def load_data(file_path: str):
-    with open(file_path, mode='r') as file:
+    raw_data = open(file_path, mode='rb').read()
+    file_encoding = chardet.detect(raw_data)['encoding']
+    with open(file_path, mode='r', encoding=file_encoding) as file:
         return re.findall(r'[^\W|\d]+', file.read().lower())
 
 

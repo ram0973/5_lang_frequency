@@ -13,6 +13,7 @@
 ```
 Python 3.5.2+
 Внешний модуль win-unicode-console
+Внешний модуль chardet
 ```
 
 ## Установка 
