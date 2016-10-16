@@ -3,7 +3,6 @@ import argparse
 import re
 import sys
 from collections import Counter
-from colorama import Fore, Style
 
 MOST_FREQUENT_WORDS_COUNT_DEFAULTS = 10
 
@@ -16,8 +15,6 @@ def load_win_unicode_console():
     if sys.platform == 'win32':
         import win_unicode_console
         win_unicode_console.enable()
-        from colorama import init
-        init()  # colorama
 
 
 def get_text_file_arguments():
@@ -56,8 +53,7 @@ if __name__ == '__main__':
     try:
         text_for_analyze = load_data(text_file_path)
     except OSError as error:
-        print(Fore.RED+Style.BRIGHT, 'Ошибка: ', error.strerror, ' в файле: ',
-              error.filename)
+        print('Ошибка: %s в файле: %s' % (error.strerror, error.filename))
         exit(1)
 
     load_win_unicode_console()
