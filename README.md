@@ -19,13 +19,24 @@ Python 3.5.2+
 Внешний модуль colorama
 ```
 
-## Установка (Windows/Linux)
+## Установка 
+
+Windows
 
 ```    
 git clone https://github.com/ram0973/5_lang_frequency.git
 cd lang_frequency
+pip install -r requirements.txt
 ```
-    
+
+Linux
+
+```    
+git clone https://github.com/ram0973/5_lang_frequency.git
+cd lang_frequency
+pip3 install -r requirements.txt
+```
+
 ## Описание работы
 Пользователь вводит путь к файлу как обязательный аргумент text,
 и необязательный аргумент count - число слов для вывода.
