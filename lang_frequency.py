@@ -60,6 +60,6 @@ if __name__ == '__main__':
         print('Ошибка: %s в файле: %s' % (error.strerror, error.filename))
         exit(1)
 
-    most_frequent_words = get_most_frequent_words(
-        text_for_analyze, top_words_count)
+    most_frequent_words = \
+        get_most_frequent_words(text_for_analyze, top_words_count)
     print_most_frequent_words_list(most_frequent_words)
