@@ -19,8 +19,8 @@ def load_win_unicode_console():
 
 
 def load_text_from_file(file_path: str):
-    with open(file_path, mode='rb') as text_file:
-        raw_data = text_file.read()
+    with open(file_path, mode='rb') as binary_file:
+        raw_data = binary_file.read()
         file_encoding = chardet.detect(raw_data)['encoding']
     with open(file_path, mode='r', encoding=file_encoding) as text_file:
         return re.findall(r'[^\W|\d]+', text_file.read().lower())
