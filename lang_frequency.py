@@ -18,7 +18,7 @@ def load_win_unicode_console():
         win_unicode_console.enable()
 
 
-def load_data(file_path: str):
+def load_text_from_file(file_path: str):
     raw_data = open(file_path, mode='rb').read()
     file_encoding = chardet.detect(raw_data)['encoding']
     with open(file_path, mode='r', encoding=file_encoding) as file:
@@ -46,14 +46,16 @@ if __name__ == '__main__':
                         default=MOST_FREQUENT_WORDS_COUNT_DEFAULTS,
                         type=int)
     if parser.parse_args().text:
+        # неверный путь обработается далее в OSError
         text_file_path = parser.parse_args().text
-        top_words_count = parser.parse_args().count
+        # тут проверка число ли это будет в argparse
+        top_words_count = abs(parser.parse_args().count)
     else:
         parser.print_help()
         exit(1)
 
     try:
-        text_for_analyze = load_data(text_file_path)
+        text_for_analyze = load_text_from_file(text_file_path)
     except OSError as error:
         print('Ошибка: %s в файле: %s' % (error.strerror, error.filename))
         exit(1)
