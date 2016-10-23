@@ -48,7 +48,7 @@ if __name__ == '__main__':
     if parser.parse_args().text:
         # неверный путь обработается далее в OSError
         text_file_path = parser.parse_args().text
-        # тут проверка число ли это будет в argparse
+        # тут проверка, целое ли это число будет в argparse
         top_words_count = abs(parser.parse_args().count)
     else:
         parser.print_help()
