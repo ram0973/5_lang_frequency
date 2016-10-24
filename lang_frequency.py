@@ -18,7 +18,12 @@ def load_win_unicode_console():
         win_unicode_console.enable()
 
 
-def load_text_from_file(file_path: str):
+def load_words_from_file(file_path: str) -> list:
+    """
+    Загружаем слова из текстового файла неизвестной кодировки
+    :param file_path: путь к файлу
+    :return: список слов файла
+    """
     with open(file_path, mode='rb') as binary_file:
         raw_data = binary_file.read()
         file_encoding = chardet.detect(raw_data)['encoding']
@@ -26,11 +31,22 @@ def load_text_from_file(file_path: str):
         return re.findall(r'[^\W|\d]+', text_file.read().lower())
 
 
-def get_most_frequent_words(text, count):
+def get_most_frequent_words(text: list, count: int) -> list:
+    """
+    Получаем список, содержащий кортежи слов c их количеством в списке text
+    [('foo',3),('bar',7)]
+    :param text: список слов
+    :param count: сколько слов отбирать
+    :return: список кортежей слов и их количества
+    """
     return Counter(text).most_common(count)
 
 
-def print_most_frequent_words_list(words_list):
+def print_most_frequent_words_list(words_list: list):
+    """
+    Печатаем список наиболее встречающихся слов
+    :param words_list: список слов в виде [('foo',3),('bar',7)]
+    """
     for number in range(len(words_list)):
         print('%d. Слово: "%s" Частота использования: %s раз' % (number + 1,
               words_list[number][0], words_list[number][1]))
@@ -56,7 +72,7 @@ if __name__ == '__main__':
         exit(1)
 
     try:
-        text_for_analyze = load_text_from_file(text_file_path)
+        text_for_analyze = load_words_from_file(text_file_path)
     except OSError as error:
         print('Ошибка: %s в файле: %s' % (error.strerror, error.filename))
         exit(1)
