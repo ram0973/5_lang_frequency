@@ -11,7 +11,6 @@ MOST_FREQUENT_WORDS_COUNT_DEFAULTS = 10
 def load_win_unicode_console():
     """
     Включаем правильное отображение unicode в консоли под MS Windows
-    и раскрашивание символов
     """
     if sys.platform == 'win32':
         import win_unicode_console
