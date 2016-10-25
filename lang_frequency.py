@@ -33,11 +33,11 @@ def load_words_from_file(file_path: str) -> list:
 
 def get_most_frequent_words(text: list, count: int) -> list:
     """
-    Получаем список, содержащий кортежи слов c их количеством в списке text
-    [('foo',3),('bar',7)]
+    Получаем список, содержащий кортежи (слово, количество в тексте)
+    -> [('foo',3),('bar',7)] из списка text
     :param text: список слов
     :param count: сколько слов отбирать
-    :return: список кортежей слов и их количества
+    :return: список кортежей (слово, количество в тексте)
     """
     return Counter(text).most_common(count)
 
@@ -47,9 +47,9 @@ def print_most_frequent_words_list(words_list: list):
     Печатаем список наиболее встречающихся слов
     :param words_list: список слов в виде [('foo',3),('bar',7)]
     """
-    for number in range(len(words_list)):
-        print('%d. Слово: "%s" Частота использования: %s раз' % (number + 1,
-              words_list[number][0], words_list[number][1]))
+    for index, value in enumerate(words_list):
+        print('%d. Слово: "%s" Частота использования: %s раз' % (index + 1,
+              value[0], value[1]))
 
 
 if __name__ == '__main__':
