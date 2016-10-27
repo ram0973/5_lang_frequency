@@ -17,28 +17,37 @@ def load_win_unicode_console():
         win_unicode_console.enable()
 
 
-def load_words_from_file(file_path: str) -> list:
+def load_text_from_file(file_path: str) -> str:
     """
     Загружаем слова из текстового файла неизвестной кодировки
     :param file_path: путь к файлу
-    :return: список слов файла
+    :return: содержимое файла
     """
     with open(file_path, mode='rb') as binary_file:
         raw_data = binary_file.read()
         file_encoding = chardet.detect(raw_data)['encoding']
     with open(file_path, mode='r', encoding=file_encoding) as text_file:
-        return re.findall(r'[^\W|\d]+', text_file.read().lower())
+        return text_file.read()
 
 
-def get_most_frequent_words(text: list, count: int) -> list:
+def get_words_from_text(text: str):
+    """
+    Возвращаем слова из text
+    :param text: текст, из которого надо получить слова
+    :return: очередное слово из текста
+    """
+    yield re.finditer(r'[^\W|\d]+', text.lower())
+
+
+def get_most_frequent_words(word, count: int) -> list:
     """
     Получаем список, содержащий кортежи (слово, количество в тексте)
     -> [('foo',3),('bar',7)] из списка text
-    :param text: список слов
+    :param word: генератор слов
     :param count: сколько слов отбирать
     :return: список кортежей (слово, количество в тексте)
     """
-    return Counter(text).most_common(count)
+    return Counter.update(word).most_common(count)
 
 
 def print_most_frequent_words_list(words_list: list):
@@ -71,11 +80,13 @@ if __name__ == '__main__':
         exit(1)
 
     try:
-        text_for_analyze = load_words_from_file(text_file_path)
+        text_for_analyze = load_text_from_file(text_file_path)
     except OSError as error:
         print('Ошибка: %s в файле: %s' % (error.strerror, error.filename))
         exit(1)
 
     most_frequent_words = \
-        get_most_frequent_words(text_for_analyze, top_words_count)
+        get_most_frequent_words(
+            get_words_from_text(text_for_analyze), top_words_count
+        )
     print_most_frequent_words_list(most_frequent_words)
