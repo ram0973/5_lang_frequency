@@ -36,14 +36,14 @@ def get_words_from_text(text: str):
     :param text: текст, из которого надо получить слова
     :return: очередное слово из текста
     """
-    for match in re.finditer(r'[^\W|\d]+', text.lower()):
+    for match in re.finditer(r'[^\W|\d]+', text, flags=re.IGNORECASE):
         yield match.group()
 
 
 def get_most_frequent_words(words, count: int) -> list:
     """
     Получаем список, содержащий кортежи (слово, количество в тексте)
-    -> [('foo',3),('bar',7)] из списка text
+    -> [('foo',3),('bar',7)]
     :param words: слова
     :param count: сколько слов отбирать
     :return: список кортежей (слово, количество в тексте)
