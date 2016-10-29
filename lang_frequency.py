@@ -37,6 +37,7 @@ def get_words_from_text(text: str):
     :return: очередное слово из текста
     """
     for match in re.finditer(r'[^\W|\d]+', text, flags=re.IGNORECASE):
+        # генератор для экономии памяти
         yield match.group()
 
 
@@ -44,10 +45,15 @@ def get_most_frequent_words(words, count: int) -> list:
     """
     Получаем список, содержащий кортежи (слово, количество в тексте)
     -> [('foo',3),('bar',7)]
-    :param words: слова
+    :param words: итератор по словам
     :param count: сколько слов отбирать
     :return: список кортежей (слово, количество в тексте)
     """
+    # Здесь если написать:
+    # return Counter().update(words).most_common(count)
+    # скрипт вылетает с ошибкой из-за генератора get_words_from_text
+    # если вместо генератора подавать список, всё ок
+    # TODO: понять почему
     words_counter = Counter()
     words_counter.update(words)
     return words_counter.most_common(count)
