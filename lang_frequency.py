@@ -49,14 +49,7 @@ def get_most_frequent_words(words, count: int) -> list:
     :param count: сколько слов отбирать
     :return: список кортежей (слово, количество в тексте)
     """
-    # Здесь если написать:
-    # return Counter().update(words).most_common(count)
-    # скрипт вылетает с ошибкой из-за генератора get_words_from_text
-    # если вместо генератора подавать список, всё ок
-    # TODO: понять почему
-    words_counter = Counter()
-    words_counter.update(words)
-    return words_counter.most_common(count)
+    return Counter(words).most_common(count)
 
 
 def print_most_frequent_words_list(words_list: list):
